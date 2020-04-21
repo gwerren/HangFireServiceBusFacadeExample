@@ -3,6 +3,10 @@ namespace HangFireServiceBusFacade.Web
     using System;
     using Hangfire;
     using Hangfire.SqlServer;
+    using HangFireServiceBusFacade.Consumers.Consumers;
+    using HangFireServiceBusFacade.Core.Events;
+    using HangFireServiceBusFacade.Core.ServiceBus;
+    using HangFireServiceBusFacade.Web.ServiceBus;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -39,6 +43,17 @@ namespace HangFireServiceBusFacade.Web
             
             // Add the processing server as IHostedService
             services.AddHangfireServer();
+
+            // Add the message publisher and configure the message consumers, note
+            // that it is possible to have multiple consumers for a single message.
+            services.AddSingleton<IMessagePublisher>(
+                o => new MessagePublisher()
+                    .For<TestEvent>(
+                        messageConfig => messageConfig
+                            .Consumer<TestEventConsumer1>()
+                            .Consumer<TestEventConsumer2>())
+                    .For<WeatherForecastsRequestedEvent>(
+                        messageConfig => messageConfig.Consumer<WeatherForecastsRequestedEventConsumer>()));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

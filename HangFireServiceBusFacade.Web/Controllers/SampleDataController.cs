@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Hangfire;
+using HangFireServiceBusFacade.Core.Events;
+using HangFireServiceBusFacade.Core.ServiceBus;
 
 namespace HangFireServiceBusFacade.Web.Controllers
 {
-    using System.Diagnostics;
-
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
@@ -17,12 +16,15 @@ namespace HangFireServiceBusFacade.Web.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        private readonly IMessagePublisher messagePublisher;
+
+        public SampleDataController(IMessagePublisher messagePublisher) { this.messagePublisher = messagePublisher; }
+
         [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts(int startDateIndex)
+        public async Task<IEnumerable<WeatherForecast>> WeatherForecasts(int startDateIndex)
         {
             // Example task we may wish to execute asynchronosly with HangFire
-            BackgroundJob.Enqueue(
-                () => Debug.WriteLine($"********** WeatherForecasts called for '{startDateIndex}' **********"));
+            await this.messagePublisher.Publish(new WeatherForecastsRequestedEvent { Index = startDateIndex });
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangFireServiceBusFacade.Web", "HangFireServiceBusFacade.Web\HangFireServiceBusFacade.Web.csproj", "{B99749AA-D35B-46E4-8FFC-DDD66DDB4B32}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangFireServiceBusFacade.Core", "HangFireServiceBusFacade.Core\HangFireServiceBusFacade.Core.csproj", "{0367E014-7837-4429-A811-F9B7707A61A2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangFireServiceBusFacade.Consumers", "HangFireServiceBusFacade.Consumers\HangFireServiceBusFacade.Consumers.csproj", "{B93A759A-A481-4AB7-8132-B21E12121C14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B99749AA-D35B-46E4-8FFC-DDD66DDB4B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B99749AA-D35B-46E4-8FFC-DDD66DDB4B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B99749AA-D35B-46E4-8FFC-DDD66DDB4B32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0367E014-7837-4429-A811-F9B7707A61A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0367E014-7837-4429-A811-F9B7707A61A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0367E014-7837-4429-A811-F9B7707A61A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0367E014-7837-4429-A811-F9B7707A61A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B93A759A-A481-4AB7-8132-B21E12121C14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A759A-A481-4AB7-8132-B21E12121C14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B93A759A-A481-4AB7-8132-B21E12121C14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B93A759A-A481-4AB7-8132-B21E12121C14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
