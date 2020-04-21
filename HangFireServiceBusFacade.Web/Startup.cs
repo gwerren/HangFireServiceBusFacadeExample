@@ -47,7 +47,7 @@ namespace HangFireServiceBusFacade.Web
             // Add the message publisher and configure the message consumers, note
             // that it is possible to have multiple consumers for a single message.
             services.AddSingleton<IMessagePublisher>(
-                o => new MessagePublisher()
+                o => new MessagePublisher(o.GetService<IBackgroundJobClient>())
                     .For<TestEvent>(
                         messageConfig => messageConfig
                             .Consumer<TestEventConsumer1>()
