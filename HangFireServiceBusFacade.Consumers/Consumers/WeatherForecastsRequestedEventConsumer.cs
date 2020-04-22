@@ -7,9 +7,9 @@ namespace HangFireServiceBusFacade.Consumers.Consumers
 
     public class WeatherForecastsRequestedEventConsumer : IMessageConsumer<WeatherForecastsRequestedEvent>
     {
-        public Task Consume(WeatherForecastsRequestedEvent message)
+        public Task Consume(IConsumeContext<WeatherForecastsRequestedEvent> context)
         {
-            Debug.WriteLine($"********** WeatherForecasts called for '{message.Index}' **********");
+            Debug.WriteLine($"********** WeatherForecasts called for '{context.Message.Index}' **********");
             return Task.CompletedTask;
         }
     }

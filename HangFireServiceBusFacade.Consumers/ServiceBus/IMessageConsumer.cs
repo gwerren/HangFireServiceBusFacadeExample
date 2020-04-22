@@ -7,6 +7,14 @@ namespace HangFireServiceBusFacade.Consumers.ServiceBus
     {
         // HangFire does support async execution of tasks (as do most frameworks
         // we might switch to) so this method should be async capable (return Task).
-        Task Consume(TMessage message);
+        Task Consume(IConsumeContext<TMessage> context);
+    }
+
+    public interface IConsumeContext<TMessage>
+    {
+        TMessage Message { get; }
+
+        Task Publish<TPublishMessage>(TPublishMessage message)
+            where TPublishMessage: class, new();
     }
 }

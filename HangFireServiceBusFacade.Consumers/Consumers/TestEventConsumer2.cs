@@ -7,9 +7,9 @@ namespace HangFireServiceBusFacade.Consumers.Consumers
 
     public class TestEventConsumer2 : IMessageConsumer<TestEvent>
     {
-        public Task Consume(TestEvent message)
+        public Task Consume(IConsumeContext<TestEvent> context)
         {
-            Debug.WriteLine($"Test Event (Consumer 2): '{message.Text}'");
+            Debug.WriteLine($"Test Event (Consumer 2): '{context.Message.Text}'");
             return Task.CompletedTask;
         }
     }

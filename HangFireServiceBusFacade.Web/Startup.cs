@@ -27,10 +27,11 @@ namespace HangFireServiceBusFacade.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Add Hangfire services.
-            services.AddHangfire(configuration => configuration
+            services.AddHangfire((serviceProvider, configuration) => configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
+                .UseMessagePublisherActivator(serviceProvider)
                 .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
                 {
                     CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
@@ -46,8 +47,8 @@ namespace HangFireServiceBusFacade.Web
 
             // Add the message publisher and configure the message consumers, note
             // that it is possible to have multiple consumers for a single message.
-            services.AddSingleton<IMessagePublisher>(
-                o => new MessagePublisher(o.GetService<IBackgroundJobClient>())
+            services.UseHangfireMessagePublisher(
+                publishConfig => publishConfig
                     .For<TestEvent>(
                         messageConfig => messageConfig
                             .Consumer<TestEventConsumer1>()
